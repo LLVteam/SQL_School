@@ -2,78 +2,73 @@ CREATE DATABASE School;
 
 USE School;
 
-CREATE TABLE Extracurriculars (
-	Activity_ID CHAR(3),
-    Act_Name VARCHAR(12),
-    Category VARCHAR(6),
-    N_Students INT,
-    Staff_ID INT,
-    Day VARCHAR(10)
-);
-
-INSERT INTO Extracurriculars 
-(Activity_ID, Act_Name, Category, N_Students, Staff_ID, Day)
-VALUES 
-('011', 'Athletics', 'Sports', '5', '1', 'Thursday'),
-('012', 'Football', 'Sports', '8', '1', 'Tuesday'),
-('013', 'Basketball', 'Sports', '6', '5', 'Monday'),
-('014', 'Tennis', 'Sports', '4', '5', 'Wednesday'),
-('021', 'Singing', 'Music', '3', '1', 'Friday'),
-('022', 'Piano', 'Music', '7', '4', 'Tuesday'),
-('023', 'Guitar', 'Music', '5', '4', 'Thursday'),
-('031', 'Painting', 'Arts', '8', '3', 'Wednesday'),
-('032', 'Sculpturing', 'Arts', '3', '4', 'Friday');
-
-CREATE TABLE Staff (
-	Staff_ID INT NOT NULL,
-	Course_ID INT,
+CREATE TABLE Teachers (
+	Teacher_ID INT NOT NULL,
+	Name VARCHAR(50),
 	Years_at_school INT,
 	Salary INT
 );
- 
-INSERT INTO Staff
-(Staff_ID, Course_ID, Years_at_school, Salary)
-VALUES
-(1, 101, 6, 3500),
-(2, 102, 2, 1500),
-(3, 103, 9, 4000),
-(4, 104, 1, 1000),
-(5, 105, 3, 2000);
 
-DROP TABLE Courses ; 
+INSERT INTO Teachers
+(Teacher_ID, Name, Years_at_school, Salary)
+VALUES
+(1, 'Sarah', 6, 3500),
+(2, 'Jacob', 2, 1500),
+(3, 'Roger', 9, 4000),
+(4, 'Pamela', 1, 1000),
+(5, 'Andrew', 3, 2000);
 
 CREATE TABLE Courses (
-	Course_ID CHAR(3),
-    Course_Name VARCHAR(18),
+	Course_ID CHAR(3) NOT NULL,
+    Course_Name VARCHAR(18) NOT NULL,
     Department VARCHAR(20),
-    Staff_ID INT NOT NULL,
-    N_Students INT,
+    Teacher_ID INT NOT NULL,
     Day VARCHAR(10),
     Schedule TIME,
     Class_length INT,
-    Year_group INT,
     Class_GPA INT
 );
 
 INSERT INTO Courses
-(Course_ID, Course_Name, Department, Staff_ID, N_Students, Day, Schedule, Class_length, Year_group, Class_GPA)
+(Course_ID, Course_Name, Department, Teacher_ID, Day, Schedule, Class_length, Class_GPA)
 VALUES
-('B01', 'Biology', 'Science', 3, 7, 'Tuesday', 10, 1, 12, 8.72),
-('B02', 'Biology', 'Science', 3, 5, 'Monday', 12, 2, 13, 6.35),
-('C01', 'Chemistry', 'Science', 5, 4, 'Thusday', 10, 1, 12, 7.30),
-('C02', 'Chemistry', 'Science', 5, 4, 'Thursday', 11, 1, 13, 5.49),
-('L01', 'Spanish', 'Languages', 3, 3, 'Wednesday', 14, 2, 12, 9.22),
-('L02', 'French', 'Languages', 2, 5, 'Tuesday', 9, 2, 13, 8.33),
-('L03', 'German', 'Languages', 4, 2, 'Friday', 10, 1, 12, 5.43),
-('M01', 'Maths', 'Science', 5, 10, 'Friday', 12, 3, 12, 7.29),
-('M02', 'Further Maths', 'Science', 5, 4, 'Monday', 10, 1, 13, 6.72),
-('P01', 'Physics', 'Science', 5, 3, 'Tuesday', 9, 1, 12, 7.93),
-('P02', 'Physics', 'Science', 5, 5, 'Wednesday', 10, 2, 13, 8.89),
-('E01', 'Economics', 'Humanities', 4, 3, 'Friday', 14, 2, 12, 6.14),
-('H01', 'History', 'Humanities', 1, 3, 'Tuesday', 9, 1, 12, 7.32),
-('G02', 'Geography', 'Humanities', 5, 2, 'Wednesday', 9, 1, 13, 5.35),
-('S01', 'Sports', 'Sports', 1, 5, 'Thursday', 13, 1, 12, 8.04),
-('S02', 'Sports', 'Sports', 1, 6, 'Thursday', 14, 1, 13, 8.36);
+('B01', 'Biology', 'Science', 3, 'Tuesday', 10, 1, 8.72),
+('B02', 'Biology', 'Science', 3, 'Monday', 12, 2, 6.35),
+('C01', 'Chemistry', 'Science', 5, 'Thusday', 10, 1, 7.30),
+('C02', 'Chemistry', 'Science', 5, 'Thursday', 11, 1, 5.49),
+('L01', 'Spanish', 'Languages', 3, 'Wednesday', 14, 2, 9.22),
+('L02', 'French', 'Languages', 2, 'Tuesday', 9, 2, 8.33),
+('L03', 'German', 'Languages', 4, 'Friday', 10, 1, 5.43),
+('M01', 'Maths', 'Science', 5, 'Friday', 12, 3, 7.29),
+('M02', 'Further Maths', 'Science', 5, 'Monday', 10, 1, 6.72),
+('P01', 'Physics', 'Science', 5, 'Tuesday', 9, 1, 7.93),
+('P02', 'Physics', 'Science', 5, 'Wednesday', 10, 2, 8.89),
+('E01', 'Economics', 'Humanities', 4, 'Friday', 14, 2, 6.14),
+('H01', 'History', 'Humanities', 1, 'Tuesday', 9, 1, 7.32),
+('G02', 'Geography', 'Humanities', 5, 'Wednesday', 9, 1, 5.35),
+('S01', 'Sports', 'Sports', 1, 'Thursday', 13, 1, 8.04),
+('S02', 'Sports', 'Sports', 1, 'Thursday', 14, 1, 8.36);
+
+CREATE TABLE Extracurriculars (
+	Activity_ID INT,
+    Act_Name VARCHAR(15),
+    Category VARCHAR(10),
+    Teacher_ID INT,
+    Day VARCHAR(10)
+);
+
+INSERT INTO Extracurriculars 
+(Activity_ID, Act_Name, Category, Teacher_ID, Day)
+VALUES 
+(011, 'Athletics', 'Sports', 1, 'Thursday'),
+(012, 'Football', 'Sports', 1, 'Tuesday'),
+(013, 'Basketball', 'Sports', 5, 'Monday'),
+(014, 'Tennis', 'Sports', 5, 'Wednesday'),
+(021, 'Singing', 'Music', 1, 'Friday'),
+(022, 'Piano', 'Music', 4, 'Tuesday'),
+(023, 'Guitar', 'Music', 4, 'Thursday'),
+(031, 'Painting', 'Arts', 3, 'Wednesday'),
+(032, 'Sculpturing', 'Arts', 4, 'Friday');
 
 CREATE TABLE Students (
 	Student_ID INT NOT NULL,
