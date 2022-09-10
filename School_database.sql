@@ -162,6 +162,28 @@ CREATE TABLE Family (
     Total_fees INT
 );
 
+INSERT INTO Family
+(Family_ID, Surname, N_Kids, Contact_Number, Address, Total_fees )
+VALUES
+("F01", "Gonzalez", 3, 45623421, "W5", 2000),
+("F02", "Morgan", 1, 45623234, "W8", 900),
+("F04", "Lee", 2, 45622342, "NW6", 2400),
+("F05", "Aspen", 1, 4432123, "IG11", 1982),
+("F06", "Blair", 3, 45689432, "W8", 2000),
+("F07", "Porte", 5, 409321823, "NW6", 4500),
+("F08", "Guerrero", 1, 41234920, "W5", 2334),
+("F09", "Colman", 2, 49028371,"IG11", 2893 ),
+("F09", "Megan", 4, 49032019, "W8", 2911),
+("F10", "Vitto", 2, 423482731,"NW6", 1788 ),
+("F11", "Gonzalez", 5, 4367939, "W11",2392),
+("F12", "Tori", 1, 41923219, "W5", 2001),
+("F13", "Marcus", 2, 43029192,"W11", 1788 ),
+("F14", "Jhonson", 5, 49382912, "SE1",2392),
+("F15", "Zannini", 2, 430293819, "SE1", 3029),
+("F16", "Gallagher", 2, 43029182,"M60", 1587 )
+
+-- W5 W8 NW6 IG11 W11 SE1 M60
+
 CREATE TABLE Bus (
 	Bus_ID CHAR(2),
     N_Students INT,
