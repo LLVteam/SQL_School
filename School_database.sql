@@ -191,10 +191,11 @@ VALUES
 CREATE TABLE Bus (
 	Bus_ID CHAR(2),
 --    N_Students INT,
-    Area_Code CHAR(4),
+    Address CHAR(4),
     Departure TIME,
     Arrival TIME
 );
+
 
 
 INSERT INTO Bus
