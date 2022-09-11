@@ -172,15 +172,15 @@ VALUES
 ("F06", "Blair", 3, 45689432, "W8", 2000),
 ("F07", "Porte", 5, 409321823, "NW6", 4500),
 ("F08", "Guerrero", 1, 41234920, "W5", 2334),
-("F09", "Colman", 2, 49028371,"IG11", 2893 ),
+("F09", "Colman", 2, 49028371,"IG11", 2893),
 ("F09", "Megan", 4, 49032019, "W8", 2911),
-("F10", "Vitto", 2, 423482731,"NW6", 1788 ),
+("F10", "Vitto", 2, 423482731,"NW6", 1788),
 ("F11", "Gonzalez", 5, 4367939, "W11",2392),
 ("F12", "Tori", 1, 41923219, "W5", 2001),
-("F13", "Marcus", 2, 43029192,"W11", 1788 ),
+("F13", "Marcus", 2, 43029192,"W11", 1788),
 ("F14", "Jhonson", 5, 49382912, "SE1",2392),
 ("F15", "Zannini", 2, 430293819, "SE1", 3029),
-("F16", "Gallagher", 2, 43029182,"M60", 1587 )
+("F16", "Gallagher", 2, 43029182,"M60", 1587);
 
 -- W5 W8 NW6 IG11 W11 SE1 M60
 
@@ -191,15 +191,13 @@ VALUES
 CREATE TABLE Bus (
 	Bus_ID CHAR(2),
 --    N_Students INT,
-    Address CHAR(4),
+    Area_Code VARCHAR(4),
     Departure TIME,
     Arrival TIME
 );
 
-
-
 INSERT INTO Bus
-(Bus_ID, Area_Code,Departure, Arrival)
+(Bus_ID, Area_Code, Departure, Arrival)
 VALUES
 ("B1", "W5", "17:00:00", "08:00:00"),
 ("B2", "W8", "17:00:00", "08:00:00"),
@@ -207,13 +205,34 @@ VALUES
 ("B4", "IG11", "17:00:00", "08:00:00"),
 ("B5", "W11", "17:00:00", "08:00:00"),
 ("B6", "SE1", "17:00:00", "08:00:00"),
-("B7", "M60", "17:00:00", "08:00:00")
-
+("B7", "M60", "17:00:00", "08:00:00");
 
 CREATE TABLE Fees (
-	Fee_id CHAR(3),
+	Fee_ID CHAR(2) NOT NULL,
     Category VARCHAR(10),
     Bus_ID CHAR(2),
-    Activity_ID CHAR(3),
+    Activity_ID INT,
     Price CHAR(5)
 );
+
+INSERT INTO Fees
+(Fee_ID, Category, Bus_ID, Activity_ID, Price)
+VALUES
+(01, 'Tuitition', null, null, 1000),
+(02, 'Meal', null, null, 200),
+(03, 'Bus', 'B1', null, 50),
+(04, 'Bus', 'B2', null, 40),
+(05, 'Bus', 'B3', null, 38),
+(06, 'Bus', 'B4', null, 45),
+(07, 'Bus', 'B5', null, 40),
+(08, 'Bus', 'B6', null, 50),
+(09, 'Bus', 'B7', null, 42),
+(10, 'Activity', null, 011, 20),
+(11, 'Activity', null, 012, 25),
+(12, 'Activity', null, 013, 20),
+(13, 'Activity', null, 014, 18),
+(14, 'Activity', null, 021, 25),
+(15, 'Activity', null, 022, 20),
+(16, 'Activity', null, 023, 20),
+(17, 'Activity', null, 031, 15),
+(18, 'Activity', null, 032, 25);
