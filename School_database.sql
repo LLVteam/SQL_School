@@ -184,13 +184,30 @@ VALUES
 
 -- W5 W8 NW6 IG11 W11 SE1 M60
 
+-- To delete the N_students column from bus table
+-- ALTER TABLE Bus
+-- DROP COLUMN N_Students;
+
 CREATE TABLE Bus (
 	Bus_ID CHAR(2),
-    N_Students INT,
+--    N_Students INT,
     Area_Code CHAR(4),
     Departure TIME,
     Arrival TIME
 );
+
+
+INSERT INTO Bus
+(Bus_ID, Area_Code,Departure, Arrival)
+VALUES
+("B1", "W5", "17:00:00", "08:00:00"),
+("B2", "W8", "17:00:00", "08:00:00"),
+("B3", "NW6", "17:00:00", "08:00:00"),
+("B4", "IG11", "17:00:00", "08:00:00"),
+("B5", "W11", "17:00:00", "08:00:00"),
+("B6", "SE1", "17:00:00", "08:00:00"),
+("B7", "M60", "17:00:00", "08:00:00")
+
 
 CREATE TABLE Fees (
 	Fee_id CHAR(3),
