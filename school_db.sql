@@ -15,15 +15,15 @@ CREATE TABLE Teacher (
 
 CREATE TABLE Courses (
 	course_id CHAR(3) NOT NULL,
-    course_name VARCHAR(18) NOT NULL,
-    department VARCHAR(20),
-    teacher_id INT NOT NULL,
-    day VARCHAR(10),
-    schedule TIME,
-    class_length INT,
-    class_GPA FLOAT,
-    PRIMARY KEY (course_id),
-    FOREIGN KEY (teacher_id) REFERENCES Teacher(teacher_id)
+  course_name VARCHAR(18) NOT NULL,
+  department VARCHAR(20),
+  teacher_id INT NOT NULL,
+  day VARCHAR(10),
+  schedule TIME,
+  class_length INT,
+  class_GPA FLOAT,
+  PRIMARY KEY (course_id),
+  FOREIGN KEY (teacher_id) REFERENCES Teacher(teacher_id)
 );
 
 CREATE TABLE Extracurriculars (
@@ -37,7 +37,7 @@ CREATE TABLE Extracurriculars (
 );
 
 CREATE TABLE Family (
-family_id CHAR(3),
+  family_id CHAR(3),
   surname VARCHAR(10),
   n_kids INT,
   contact_number CHAR(11),
@@ -47,7 +47,7 @@ family_id CHAR(3),
 );
 
 CREATE TABLE Student (
-student_id INT NOT NULL,
+  student_id INT NOT NULL,
   name VARCHAR(50),
   family_id CHAR(3),
   year_group INT,
