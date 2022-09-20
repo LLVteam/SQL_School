@@ -5,93 +5,103 @@ USE School;
 
 -- Create tables -- 
 
-CREATE TABLE Teacher (
-	teacher_id INT NOT NULL,
-	teacher_name VARCHAR(50),
-	years_at_school INT,
-	salary INT,
-  PRIMARY KEY (teacher_id)
+CREATE TABLE Teachers (
+	Teacher_ID INT NOT NULL,
+	Teacher_Name VARCHAR(50),
+	Years_at_school INT,
+	Salary INT,
+    CONSTRAINT
+    PRIMARY KEY (Teacher_ID)
 );
 
 CREATE TABLE Courses (
-	course_id CHAR(3) NOT NULL,
-  course_name VARCHAR(18) NOT NULL,
-  department VARCHAR(20),
-  teacher_id INT NOT NULL,
-  day VARCHAR(10),
-  schedule TIME,
-  class_length INT,
-  class_GPA FLOAT,
-  PRIMARY KEY (course_id),
-  FOREIGN KEY (teacher_id) REFERENCES Teacher(teacher_id)
+	Course_ID CHAR(3) NOT NULL,
+	Course_Name VARCHAR(18) NOT NULL,
+	Department VARCHAR(20),
+	Teacher_ID INT NOT NULL,
+	Day VARCHAR(10),
+	Schedule TIME,
+	Class_length INT,
+	Class_GPA FLOAT,
+    CONSTRAINT
+	PRIMARY KEY (Course_ID),
+	FOREIGN KEY (Teacher_ID) REFERENCES Teachers(Teacher_ID)
 );
 
 CREATE TABLE Extracurriculars (
-  activity_id INT,
-  act_name VARCHAR(15),
-  category VARCHAR(10),
-  teacher_id INT,
-  day VARCHAR(10),
-  PRIMARY KEY (activity_id),
-  FOREIGN KEY (teacher_id) REFERENCES Teacher(teacher_id)
+	Activity_ID INT NOT NULL,
+	Act_name VARCHAR(15),
+	Category VARCHAR(10),
+	Teacher_ID INT NOT NULL,
+	Day VARCHAR(10),
+	CONSTRAINT
+	PRIMARY KEY (Activity_ID),
+	FOREIGN KEY (Teacher_ID) REFERENCES Teachers(Teacher_ID)
 );
 
 CREATE TABLE Family (
-  family_id CHAR(3),
-  surname VARCHAR(10),
-  n_kids INT,
-  contact_number CHAR(11),
-  address VARCHAR(50),
-  total_fees INT,
-  PRIMARY KEY (family_id)
+	Family_ID CHAR(3) NOT NULL,
+	Surname VARCHAR(10),
+	N_Kids INT,
+	Contact_Number CHAR(11),
+	Address VARCHAR(50),
+	Total_Fees INT,
+	CONSTRAINT
+    PRIMARY KEY (Family_ID)
 );
 
-CREATE TABLE Student (
-  student_id INT NOT NULL,
-  name VARCHAR(50),
-  family_id CHAR(3),
-  year_group INT,
-  GPA INT,
-  DOB DATE,
-  merits INT,
-  suspensions INT,
-  bus_id CHAR(2),
-  school_meals BOOLEAN,
-  PRIMARY KEY (student_id),
-  FOREIGN KEY (family_id) REFERENCES Family(family_id)
+CREATE TABLE Students (
+	Student_ID INT NOT NULL,
+	Name VARCHAR(50),
+	Family_ID CHAR(3),
+	Year_group INT,
+	GPA INT,
+	DOB DATE,
+	merits INT,
+	suspensions INT,
+	Bus_ID CHAR(2),
+	School_meals BOOLEAN,
+	CONSTRAINT
+    PRIMARY KEY (Student_ID),
+	FOREIGN KEY (Family_ID) REFERENCES Family(Family_ID)
 );
 
 CREATE TABLE Courses_extracurriculars_students (
-	course_id CHAR(3),
-  student_id INT,
-  activity_id INT,
-  FOREIGN KEY (course_id) REFERENCES Courses(course_id),
-  FOREIGN KEY (student_id) REFERENCES Student(student_id),
-  FOREIGN KEY (activity_id) REFERENCES Extracurriculars(activity_id)
+	Course_ID CHAR(3),
+	Student_ID INT NOT NULL,
+	Activity_ID INT,
+    CONSTRAINT
+	FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID),
+	FOREIGN KEY (Student_ID) REFERENCES Students(Student_ID),
+	FOREIGN KEY (Activity_ID) REFERENCES Extracurriculars(Activity_ID)
 );
 
-
 CREATE TABLE Bus (
-	bus_id CHAR(2),
-  area_code VARCHAR(4),
-  departure TIME,
-  arrival TIME,
-  PRIMARY KEY (bus_id)
+	Bus_ID CHAR(2) NOT NULL,
+	Area_code VARCHAR(4),
+	Departure TIME,
+	Arrival TIME,
+    CONSTRAINT
+	PRIMARY KEY (Bus_ID)
 );
 
 CREATE TABLE Fees (
-	fee_ID CHAR(2) NOT NULL,
-  category VARCHAR(10),
-  bus_id CHAR(2),
-  activity_id INT,
-  price CHAR(5),
-  PRIMARY KEY (fee_ID)
+	Fee_ID CHAR(2) NOT NULL,
+	Category VARCHAR(10),
+	Bus_ID CHAR(2),
+	Activity_ID INT,
+	Price CHAR(5),
+    CONSTRAINT
+	PRIMARY KEY (Fee_ID),
+    FOREIGN KEY (Bus_ID) REFERENCES Bus(Bus_ID),
+    FOREIGN KEY (Activity_ID) REFERENCES Extracurriculars(Activity_ID)
 );
+
 
 -- POPULATE TABLES -- 
 
-INSERT INTO Teacher
-(teacher_id, teacher_name, years_at_school, salary)
+INSERT INTO Teachers
+(Teacher_ID, Teacher_Name, Years_at_school, Salary)
 VALUES
 (1, 'Sarah', 6, 3500),
 (2, 'Jacob', 2, 1500),
@@ -100,27 +110,27 @@ VALUES
 (5, 'Andrew', 3, 2000);
 
 INSERT INTO Courses
-(course_id, course_name, department, teacher_id, day, schedule, class_length, class_GPA)
+(Course_ID, Course_Name, Department, Teacher_ID, Day, Schedule, Class_length, Class_GPA)
 VALUES
-('B01', 'Biology', 'Science', 3, 'Tuesday', 10, 1, 8.72),
-('B02', 'Biology', 'Science', 3, 'Monday', 12, 2, 6.35),
-('C01', 'Chemistry', 'Science', 5, 'Thusday', 10, 1, 7.30),
-('C02', 'Chemistry', 'Science', 5, 'Thursday', 11, 1, 5.49),
-('L01', 'Spanish', 'Languages', 3, 'Wednesday', 14, 2, 9.22),
-('L02', 'French', 'Languages', 2, 'Tuesday', 9, 2, 8.33),
-('L03', 'German', 'Languages', 4, 'Friday', 10, 1, 5.43),
-('M01', 'Maths', 'Science', 5, 'Friday', 12, 3, 7.29),
-('M02', 'Further Maths', 'Science', 5, 'Monday', 10, 1, 6.72),
-('P01', 'Physics', 'Science', 5, 'Tuesday', 9, 1, 7.93),
-('P02', 'Physics', 'Science', 5, 'Wednesday', 10, 2, 8.89),
-('E01', 'Economics', 'Humanities', 4, 'Friday', 14, 2, 6.14),
-('H01', 'History', 'Humanities', 1, 'Tuesday', 9, 1, 7.32),
-('G02', 'Geography', 'Humanities', 5, 'Wednesday', 9, 1, 5.35),
-('S01', 'Sports', 'Sports', 1, 'Thursday', 13, 1, 8.04),
-('S02', 'Sports', 'Sports', 1, 'Thursday', 14, 1, 8.36);
+('B01', 'Biology', 'Science', 3, 'Tuesday', '10:00:00', 1, 8.72),
+('B02', 'Biology', 'Science', 3, 'Monday', '12:00:00', 2, 6.35),
+('C01', 'Chemistry', 'Science', 5, 'Thusday', '10:00:00', 1, 7.30),
+('C02', 'Chemistry', 'Science', 5, 'Thursday', '11:00:00', 1, 5.49),
+('L01', 'Spanish', 'Languages', 3, 'Wednesday', '14:00:00', 2, 9.22),
+('L02', 'French', 'Languages', 2, 'Tuesday', '9:00:00', 2, 8.33),
+('L03', 'German', 'Languages', 4, 'Friday', '10:00:00', 1, 5.43),
+('M01', 'Maths', 'Science', 5, 'Friday', '12:00:00', 3, 7.29),
+('M02', 'Further Maths', 'Science', 5, 'Monday', '10:00:00', 1, 6.72),
+('P01', 'Physics', 'Science', 5, 'Tuesday', '9:00:00', 1, 7.93),
+('P02', 'Physics', 'Science', 5, 'Wednesday', '10:00:00', 2, 8.89),
+('E01', 'Economics', 'Humanities', 4, 'Friday', '14:00:00', 2, 6.14),
+('H01', 'History', 'Humanities', 1, 'Tuesday', '9:00:00', 1, 7.32),
+('G02', 'Geography', 'Humanities', 5, 'Wednesday', '9:00:00', 1, 5.35),
+('S01', 'Sports', 'Sports', 1, 'Thursday', '13:00:00', 1, 8.04),
+('S02', 'Sports', 'Sports', 1, 'Thursday', '14:00:00', 1, 8.36);
 
 INSERT INTO Extracurriculars 
-(activity_id, act_name, category, teacher_id, day)
+(Activity_ID, Act_name, Category, Teacher_ID, Day)
 VALUES 
 (011, 'Athletics', 'Sports', 1, 'Thursday'),
 (012, 'Football', 'Sports', 1, 'Tuesday'),
@@ -133,7 +143,7 @@ VALUES
 (032, 'Sculpturing', 'Arts', 4, 'Friday');
 
 INSERT INTO Courses_extracurriculars_students
-(course_id, student_id, activity_id)
+(Course_ID, Student_ID, Activity_ID)
 VALUES
 ('B01', 1, 021),
 ('C01', 1, 012),
@@ -166,45 +176,58 @@ VALUES
 ('L02', 10, null),
 ('C01', 10, null);
 
-
-INSERT INTO Student
-(student_id, name,  year_group, GPA, DOB, merits, suspensions, bus_id, school_meals)
+INSERT INTO Students
+(Student_ID, Name, Family_ID, Year_group, GPA, DOB, merits, suspensions, Bus_ID, School_meals)
 VALUES 
-(1,"Monica Wade",  8, 9.54, "2008-12-07", 2, 0, "B1", true ), 
-(2,"Simon Lopez",  8, 8.61, "2008-11-03", 1, 2, "B2", true ),
-(3, "Jennifer Steward", 9, 6.52, "2007-12-05", 0, 4, "B3", false ),
-(4,"Leo McCollin", 10, 8.87, "2006-02-18", 3, 2, "B2", true ),
-(5,"Frea Simpson",  8, 6.76, "2008-05-02", 3, 0, "B1", false ),
-(6,"Dallia Wade",  11, 9.32, "2005-07-22", 2, 2, "B1", true ),
-(7,"Monica Wade",  9, 8.55, "2007-12-23", 5, 1, "B3", false ),
-(8,"Collin Fown",  10, 6.98, "2006-11-09", 4, 8, "B7", false ),
-(9,"Monica Wade",  10, 7.55, "2006-10-21", 0, 3, "B7", true ),
-(10,"Monica Wade",  8, 8.43, "2008-02-26", 2, 1, "B5", true );
-
+(1, 'Monica', 'F03', 8, 9.54, "2008-12-07", 2, 0, "B1", TRUE), 
+(2, 'Simon', 'F05', 8, 8.61, "2008-11-03", 1, 2, null, TRUE),
+(3, 'Jennifer', 'F11', 9, 6.52, "2007-12-05", 0, 4, "B3", FALSE),
+(4, 'Leo', 'F09', 10, 8.87, "2006-02-18", 3, 2, "B2", TRUE),
+(5, 'Frea', 'F13', 8, 6.76, "2008-05-02", 3, 0, null, FALSE),
+(6, 'Dallia', 'F09', 11, 9.32, "2005-07-22", 2, 2, "B2", TRUE),
+(7, 'Monica', 'F01', 9, 8.55, "2007-12-23", 5, 1, "B3", TRUE),
+(8, 'Collin', 'F02', 10, 6.98, "2006-11-09", 4, 8, "B7", FALSE),
+(9, 'Monica', 'F12', 10, 7.55, "2006-10-21", 0, 3, "B7", TRUE),
+(10, 'Monica', 'F16', 8, 8.43, "2008-02-26", 2, 1, "B5", TRUE),
+(11, 'Collin', 'F03', 10, 6.32, "2006-03-12", 0, 0, "B1", TRUE),
+(12, 'Maja', 'F13', 10, 8.49, "2008-04-02", 1, 0, null, FALSE),
+(13, 'Andrew', 'F10', 10, 7.32, "2006-02-10", 3, 1, null, TRUE),
+(14, 'Lucy', 'F01', 10, 9.45, "2006-03-07", 2, 2, "B3", TRUE),
+(15, 'Martha', 'F08', 10, 5.98, "2007-04-13", 0, 0, "B5", TRUE),
+(16, 'Peter', 'F15', 10, 6.54, "2005-12-02", 3, 0, "B6", TRUE),
+(17, 'Theo', 'F04', 10, 4.23, "2006-01-31", 0, 4, "B4", FALSE),
+(18, 'Hannah', 'F07', 10, 7.98, "2008-03-12", 3, 1, "B1", FALSE),
+(19, 'Chloe', 'F10', 10, 6.25, "2007-01-11", 3, 0, null, TRUE),
+(20, 'Tom', 'F01', 10, 7.20, "2006-08-31", 1, 1, "B3", TRUE),
+(21, 'Andrew', 'F14', 10, 6.05, "2005-09-01", 0, 0, null, FALSE),
+(22, 'Stewart', 'F04', 10, 7.83, "2006-09-28", 4, 0, "B4", FALSE),
+(23, 'Lily', 'F15', 10, 6.32, "2007-02-16", 0, 1, "B6", TRUE),
+(24, 'Hans', 'F06', 10, 8.30, "2007-08-29", 2, 0, "B7", FALSE),
+(25, 'Laura', 'F06', 10, 9.56, "2008-12-14", 5, 0, "B7", FALSE),
+(26, 'Collin', 'F06', 10, 6.27, "2005-12-05", 1, 0, "B7", FALSE);
 
 INSERT INTO Family
-(family_id, surname, n_kids, contact_number, address, total_fees )
+(Family_ID, Surname, N_Kids, Contact_number, Address, Total_Fees )
 VALUES
 ("F01", "Gonzalez", 3, 45623421, "W5", 2000),
 ("F02", "Morgan", 1, 45623234, "W8", 900),
-("F03", "Megan", 4, 49032019, "W8", 2911),
+("F03", "Megan", 2, 49032019, "W8", 2911),
 ("F04", "Lee", 2, 45622342, "NW6", 2400),
 ("F05", "Aspen", 1, 4432123, "IG11", 1982),
 ("F06", "Blair", 3, 45689432, "W8", 2000),
-("F07", "Porte", 5, 409321823, "NW6", 4500),
+("F07", "Porte", 1, 409321823, "NW6", 4500),
 ("F08", "Guerrero", 1, 41234920, "W5", 2334),
 ("F09", "Colman", 2, 49028371,"IG11", 2893),
 ("F10", "Vitto", 2, 423482731,"NW6", 1788),
-("F11", "Gonzalez", 5, 4367939, "W11",2392),
+("F11", "Gonzalez", 1, 4367939, "W11",2392),
 ("F12", "Tori", 1, 41923219, "W5", 2001),
 ("F13", "Marcus", 2, 43029192,"W11", 1788),
-("F14", "Jhonson", 5, 49382912, "SE1",2392),
+("F14", "Jhonson", 1, 49382912, "SE1",2392),
 ("F15", "Zannini", 2, 430293819, "SE1", 3029),
-("F16", "Gallagher", 2, 43029182,"M60", 1587);
-
+("F16", "Gallagher", 1, 43029182,"M60", 1587);
 
 INSERT INTO Bus
-(bus_id, area_code, departure, arrival)
+(Bus_ID, Area_code, Departure, Arrival)
 VALUES
 ("B1", "W5", "17:00:00", "08:00:00"),
 ("B2", "W8", "17:00:00", "08:00:00"),
@@ -215,7 +238,7 @@ VALUES
 ("B7", "M60", "17:00:00", "08:00:00");
 
 INSERT INTO Fees
-(fee_id, category, bus_id, activity_id, price)
+(Fee_ID, Category, Bus_ID, Activity_ID, Price)
 VALUES
 (01, 'Tuitition', null, null, 1000),
 (02, 'Meal', null, null, 200),
