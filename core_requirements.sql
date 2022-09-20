@@ -4,18 +4,18 @@ USE School;
 
 DELIMITER $$  
 CREATE FUNCTION Teacher_Seniority(  
-    years_at_school INT  
+    Years_at_school INT  
 )   
 RETURNS VARCHAR(20)  
 DETERMINISTIC  
 BEGIN  
     DECLARE seniority VARCHAR(20);  
-    IF years_at_school <= 1 THEN  
+    IF Years_at_school <= 1 THEN  
         SET seniority = "Entry level";
-	ELSEIF (years_at_school >= 2 AND   
-            years_at_school <= 4) THEN 
+	ELSEIF (Years_at_school >= 2 AND   
+            Years_at_school <= 4) THEN 
         SET seniority = "Mid-senior";  
-    ELSEIF years_at_school > 5 THEN  
+    ELSEIF Years_at_school > 5 THEN  
         SET seniority = "Senior";  
     END IF;  
     -- return the teacher seniority
@@ -29,11 +29,39 @@ SHOW FUNCTION STATUS WHERE db = 'School';
 
 -- use the stored function
 SELECT 
-	teacher_name As "Name" ,years_at_school As "Years at school", Teacher_Seniority(years_at_school) As "Seniority" 
+	Teacher_Name As "Name" ,Years_at_school As "Years at school", Teacher_Seniority(Years_at_school) As "Seniority" 
 FROM 
-	Teacher 
+	Teachers 
 ORDER BY 
-	salary;  
+	Salary;  
 
 
-  
+
+-- Requirement 5: Example queries with subqueries to extract data from DB
+
+
+-- show all courses taught by teachers 1 or 5
+USE School;
+
+SELECT * FROM Courses
+WHERE Teacher_ID = 1 OR Teacher_ID = 5;
+
+
+-- show number of student who take each class
+SELECT 
+	Course_ID, 
+    Course_Name, 
+	(
+		SELECT count(*) AS N_students
+		FROM courses_extracurriculars_students
+		WHERE Courses.Course_ID = courses_extracurriculars_students.Course_ID
+	)
+FROM Courses;
+
+
+-- show all families with more than 1 kid in alphabetical order
+SELECT Family_ID, Surname, N_Kids
+FROM Family
+WHERE N_Kids > 1
+ORDER BY Surname asc;
+
