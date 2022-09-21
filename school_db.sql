@@ -57,8 +57,8 @@ CREATE TABLE Students (
 	Year_group INT,
 	GPA INT,
 	DOB DATE,
-	merits INT,
-	suspensions INT,
+	penalties INT,
+	status VARCHAR(10),
 	Bus_ID CHAR(2),
 	School_meals BOOLEAN,
 	CONSTRAINT
@@ -142,6 +142,56 @@ VALUES
 (031, 'Painting', 'Arts', 3, 'Wednesday'),
 (032, 'Sculpturing', 'Arts', 4, 'Friday');
 
+INSERT INTO Family
+(Family_ID, Surname, N_Kids, Contact_number, Address, Total_Fees )
+VALUES
+("F01", "Gonzalez", 3, 45623421, "W5", 2000),
+("F02", "Morgan", 1, 45623234, "W8", 900),
+("F03", "Megan", 2, 49032019, "W8", 2911),
+("F04", "Lee", 2, 45622342, "NW6", 2400),
+("F05", "Aspen", 1, 4432123, "IG11", 1982),
+("F06", "Blair", 3, 45689432, "W8", 2000),
+("F07", "Porte", 1, 409321823, "NW6", 4500),
+("F08", "Guerrero", 1, 41234920, "W5", 2334),
+("F09", "Colman", 2, 49028371,"IG11", 2893),
+("F10", "Vitto", 2, 423482731,"NW6", 1788),
+("F11", "Gonzalez", 1, 4367939, "W11",2392),
+("F12", "Tori", 1, 41923219, "W5", 2001),
+("F13", "Marcus", 2, 43029192,"W11", 1788),
+("F14", "Jhonson", 1, 49382912, "SE1",2392),
+("F15", "Zannini", 2, 430293819, "SE1", 3029),
+("F16", "Gallagher", 1, 43029182,"M60", 1587);
+
+INSERT INTO Students
+(Student_ID, Name, Family_ID, Year_group, GPA, DOB, penalties, status, Bus_ID, School_meals)
+VALUES 
+(1, 'Monica', 'F03', 8, 9.54, "2008-12-07", 0, 'student', "B1", TRUE), 
+(2, 'Simon', 'F05', 8, 8.61, "2008-11-03", 2, 'student', null, TRUE),
+(3, 'Jennifer', 'F11', 9, 6.52, "2007-12-05", 4, 'student', "B3", FALSE),
+(4, 'Leo', 'F09', 10, 8.87, "2006-02-18", 2, 'student', "B2", TRUE),
+(5, 'Frea', 'F13', 8, 6.76, "2008-05-02", 0, 'student', null, FALSE),
+(6, 'Dallia', 'F09', 11, 9.32, "2005-07-22", 2, 'student', "B2", TRUE),
+(7, 'Monica', 'F01', 9, 8.55, "2007-12-23", 1, 'student', "B3", TRUE),
+(8, 'Collin', 'F02', 10, 6.98, "2006-11-09", 4, 'student', "B7", FALSE),
+(9, 'Monica', 'F12', 10, 7.55, "2006-10-21", 0, 'student', "B7", TRUE),
+(10, 'Monica', 'F16', 8, 8.43, "2008-02-26", 1, 'student', "B5", TRUE),
+(11, 'Collin', 'F03', 10, 6.32, "2006-03-12", 0, 'student', "B1", TRUE),
+(12, 'Maja', 'F13', 10, 8.49, "2008-04-02", 0, 'student', null, FALSE),
+(13, 'Andrew', 'F10', 10, 7.32, "2006-02-10", 1, 'student', null, TRUE),
+(14, 'Lucy', 'F01', 10, 9.45, "2006-03-07", 2, 'student', "B3", TRUE),
+(15, 'Martha', 'F08', 10, 5.98, "2007-04-13", 0, 'student', "B5", TRUE),
+(16, 'Peter', 'F15', 10, 6.54, "2005-12-02", 0, 'student', "B6", TRUE),
+(17, 'Theo', 'F04', 10, 4.23, "2006-01-31", 4, 'student', "B4", FALSE),
+(18, 'Hannah', 'F07', 10, 7.98, "2008-03-12", 1, 'student', "B1", FALSE),
+(19, 'Chloe', 'F10', 10, 6.25, "2007-01-11", 0, 'student', null, TRUE),
+(20, 'Tom', 'F01', 10, 7.20, "2006-08-31", 1, 'student', "B3", TRUE),
+(21, 'Andrew', 'F14', 10, 6.05, "2005-09-01", 0, 'student', null, FALSE),
+(22, 'Stewart', 'F04', 10, 7.83, "2006-09-28", 0, 'student', "B4", FALSE),
+(23, 'Lily', 'F15', 10, 6.32, "2007-02-16", 1, 'student', "B6", TRUE),
+(24, 'Hans', 'F06', 10, 8.30, "2007-08-29", 0, 'student', "B7", FALSE),
+(25, 'Laura', 'F06', 10, 9.56, "2008-12-14", 0, 'student', "B7", FALSE),
+(26, 'Collin', 'F06', 10, 6.27, "2005-12-05", 1, 'student', "B7", FALSE);
+
 INSERT INTO Courses_extracurriculars_students
 (Course_ID, Student_ID, Activity_ID)
 VALUES
@@ -175,56 +225,6 @@ VALUES
 ('M01', 10, 023),
 ('L02', 10, null),
 ('C01', 10, null);
-
-INSERT INTO Students
-(Student_ID, Name, Family_ID, Year_group, GPA, DOB, merits, suspensions, Bus_ID, School_meals)
-VALUES 
-(1, 'Monica', 'F03', 8, 9.54, "2008-12-07", 2, 0, "B1", TRUE), 
-(2, 'Simon', 'F05', 8, 8.61, "2008-11-03", 1, 2, null, TRUE),
-(3, 'Jennifer', 'F11', 9, 6.52, "2007-12-05", 0, 4, "B3", FALSE),
-(4, 'Leo', 'F09', 10, 8.87, "2006-02-18", 3, 2, "B2", TRUE),
-(5, 'Frea', 'F13', 8, 6.76, "2008-05-02", 3, 0, null, FALSE),
-(6, 'Dallia', 'F09', 11, 9.32, "2005-07-22", 2, 2, "B2", TRUE),
-(7, 'Monica', 'F01', 9, 8.55, "2007-12-23", 5, 1, "B3", TRUE),
-(8, 'Collin', 'F02', 10, 6.98, "2006-11-09", 4, 8, "B7", FALSE),
-(9, 'Monica', 'F12', 10, 7.55, "2006-10-21", 0, 3, "B7", TRUE),
-(10, 'Monica', 'F16', 8, 8.43, "2008-02-26", 2, 1, "B5", TRUE),
-(11, 'Collin', 'F03', 10, 6.32, "2006-03-12", 0, 0, "B1", TRUE),
-(12, 'Maja', 'F13', 10, 8.49, "2008-04-02", 1, 0, null, FALSE),
-(13, 'Andrew', 'F10', 10, 7.32, "2006-02-10", 3, 1, null, TRUE),
-(14, 'Lucy', 'F01', 10, 9.45, "2006-03-07", 2, 2, "B3", TRUE),
-(15, 'Martha', 'F08', 10, 5.98, "2007-04-13", 0, 0, "B5", TRUE),
-(16, 'Peter', 'F15', 10, 6.54, "2005-12-02", 3, 0, "B6", TRUE),
-(17, 'Theo', 'F04', 10, 4.23, "2006-01-31", 0, 4, "B4", FALSE),
-(18, 'Hannah', 'F07', 10, 7.98, "2008-03-12", 3, 1, "B1", FALSE),
-(19, 'Chloe', 'F10', 10, 6.25, "2007-01-11", 3, 0, null, TRUE),
-(20, 'Tom', 'F01', 10, 7.20, "2006-08-31", 1, 1, "B3", TRUE),
-(21, 'Andrew', 'F14', 10, 6.05, "2005-09-01", 0, 0, null, FALSE),
-(22, 'Stewart', 'F04', 10, 7.83, "2006-09-28", 4, 0, "B4", FALSE),
-(23, 'Lily', 'F15', 10, 6.32, "2007-02-16", 0, 1, "B6", TRUE),
-(24, 'Hans', 'F06', 10, 8.30, "2007-08-29", 2, 0, "B7", FALSE),
-(25, 'Laura', 'F06', 10, 9.56, "2008-12-14", 5, 0, "B7", FALSE),
-(26, 'Collin', 'F06', 10, 6.27, "2005-12-05", 1, 0, "B7", FALSE);
-
-INSERT INTO Family
-(Family_ID, Surname, N_Kids, Contact_number, Address, Total_Fees )
-VALUES
-("F01", "Gonzalez", 3, 45623421, "W5", 2000),
-("F02", "Morgan", 1, 45623234, "W8", 900),
-("F03", "Megan", 2, 49032019, "W8", 2911),
-("F04", "Lee", 2, 45622342, "NW6", 2400),
-("F05", "Aspen", 1, 4432123, "IG11", 1982),
-("F06", "Blair", 3, 45689432, "W8", 2000),
-("F07", "Porte", 1, 409321823, "NW6", 4500),
-("F08", "Guerrero", 1, 41234920, "W5", 2334),
-("F09", "Colman", 2, 49028371,"IG11", 2893),
-("F10", "Vitto", 2, 423482731,"NW6", 1788),
-("F11", "Gonzalez", 1, 4367939, "W11",2392),
-("F12", "Tori", 1, 41923219, "W5", 2001),
-("F13", "Marcus", 2, 43029192,"W11", 1788),
-("F14", "Jhonson", 1, 49382912, "SE1",2392),
-("F15", "Zannini", 2, 430293819, "SE1", 3029),
-("F16", "Gallagher", 1, 43029182,"M60", 1587);
 
 INSERT INTO Bus
 (Bus_ID, Area_code, Departure, Arrival)
