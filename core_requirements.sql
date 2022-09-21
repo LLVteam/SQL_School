@@ -47,16 +47,17 @@ SELECT * FROM Courses
 WHERE Teacher_ID = 1 OR Teacher_ID = 5;
 
 
--- show number of student who take each class
+-- show number of student who take each class, in reverse alphabetical order
 SELECT 
 	Course_ID, 
     Course_Name, 
 	(
-		SELECT count(*) AS N_students
+		SELECT count(*) 
 		FROM courses_extracurriculars_students
 		WHERE Courses.Course_ID = courses_extracurriculars_students.Course_ID
-	)
-FROM Courses;
+	) AS N_students
+FROM Courses
+ORDER BY Course_Name desc;
 
 
 -- show all families with more than 1 kid in alphabetical order
