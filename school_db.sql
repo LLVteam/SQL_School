@@ -63,7 +63,8 @@ CREATE TABLE Students (
 	School_meals BOOLEAN,
 	CONSTRAINT
     PRIMARY KEY (Student_ID),
-	FOREIGN KEY (Family_ID) REFERENCES Family(Family_ID)
+	FOREIGN KEY (Family_ID) REFERENCES Family(Family_ID),
+    FOREIGN KEY (Bus_ID) REFERENCES Bus(Bus_ID)
 );
 
 CREATE TABLE Courses_extracurriculars_students (

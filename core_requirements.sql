@@ -1,6 +1,6 @@
 USE School;
 
--- Requirement 4: Create a stored function that can be applied to a query in your DB
+-- CORE REQUIREMENT #4: Create a stored function that can be applied to a query in your DB
 
 DELIMITER $$  
 CREATE FUNCTION Teacher_Seniority(  
@@ -37,7 +37,7 @@ ORDER BY
 
 
 
--- Requirement 5: Example queries with subqueries to extract data from DB
+-- CORE REQUIREMENT #5: Example queries with subqueries to extract data from DB
 
 
 -- show all courses taught by teachers 1 or 5
@@ -65,4 +65,3 @@ SELECT Family_ID, Surname, N_Kids
 FROM Family
 WHERE N_Kids > 1
 ORDER BY Surname asc;
-
