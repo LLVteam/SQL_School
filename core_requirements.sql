@@ -1,4 +1,15 @@
 USE School;
+-- CORE REQUIREMENT #3: Using any type of the joins, create a view 
+-- that combines multiple tables in a logical way
+
+CREATE VIEW teacher_info AS
+SELECT t.Teacher_ID, t.Teacher_Name, c.Course_ID, c.Course_Name
+FROM teachers as t
+INNER JOIN courses as c
+ON t.Teacher_ID = c.Teacher_ID;
+
+SELECT ti.Teacher_Name AS Teacher, ti.Course_Name AS Course FROM teacher_info as ti
+ORDER BY Teacher_Name ASC;
 
 -- CORE REQUIREMENT #4: Create a stored function that can be applied to a query in your DB
 
